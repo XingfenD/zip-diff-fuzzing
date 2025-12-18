@@ -1,0 +1,29 @@
+# mid files
+
+*.o
+
+*.gcda
+
+*.gcno
+
+*.info
+
+flags
+
+# executable files
+
+unzip
+
+funzip
+
+unzipsfx
+
+# test files
+
+notes
+
+testmake.zipinfo
+
+# coverage report
+
+coverage_report/
