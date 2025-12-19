@@ -23,7 +23,7 @@ WORKDIR /workspace
 
 FROM base AS file_prepare
 COPY unzip60 /workspace/unzip60
-COPY unzip unzip-all.sh /workspace/
+COPY unzip unzip-all.sh app.env /workspace/
 
 FROM file_prepare AS build
 RUN cd /workspace/unzip60 && make -f ./unix/Makefile generic

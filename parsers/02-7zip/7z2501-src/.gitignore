@@ -2,6 +2,10 @@
 
 *.o
 
+*.gcno
+
+*.gcda
+
 7zdec
 
 7zz

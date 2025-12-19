@@ -13,6 +13,7 @@
 # This file contains modifications to the original ZipDiff codebase (https://github.com/ouuan/ZipDiff).
 # Modifications include:
 #   1. Change the script path to the scripts_for_parsers directory.
+#   2. Add the app.env file to each parser directory.
 
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the Apache-2.0 License and MIT License is distributed on an
@@ -29,9 +30,10 @@ output_dir="${OUTPUT_DIR:-$base/evaluation/output}"
 
 cd "$base"/parsers
 echo "services:" > docker-compose.yml
+echo "ROOT_DIR=$base" >> "$scripts_base"/app.env
 
 for i in */; do
-    cp "$scripts_base"/unzip-all.sh "$scripts_base"/parallel-unzip-all.sh "$scripts_base"/testcase.sh "$i"
+    cp "$scripts_base"/unzip-all.sh "$scripts_base"/parallel-unzip-all.sh "$scripts_base"/testcase.sh "$scripts_base"/app.env "$i"
     parser=${i%/}
     echo "  $parser:
     build: $parser

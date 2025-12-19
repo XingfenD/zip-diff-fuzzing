@@ -10,7 +10,7 @@ WORKDIR /workspace
 
 FROM env AS file_prepare
 COPY 7z2501-src /workspace/7z2501-src
-COPY unzip unzip-all.sh /workspace/
+COPY unzip unzip-all.sh app.env /workspace/
 
 FROM file_prepare AS build
 RUN cd /workspace/7z2501-src/CPP/7zip/Bundles/Alone && make -f makefile.gcc
