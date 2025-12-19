@@ -26,11 +26,9 @@ set -eu
 
 cd /input
 
+rm -rf /output/*
+
 for filename in *; do
-    filebasename=$(basename "$filename")
-    if [ -e /output/"$filebasename" ]; then
-        rm -rf /output/"$filebasename"
-    fi
-    mkdir -p /output/"$filebasename"
-    timeout 1m /workspace/unzip "$(realpath "$filename")" /output/"$filebasename"
+    mkdir -p /output/"$filename"
+    timeout 1m /workspace/unzip "$(realpath "$filename")" /output/"$filename"
 done
