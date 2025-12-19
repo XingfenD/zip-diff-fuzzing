@@ -8,10 +8,10 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositorie
 WORKDIR /workspace
 
 FROM base AS file_prepare
-COPY unzip60 /workspace/unzip60
+COPY src /workspace/src
 COPY unzip unzip-all.sh coverage.sh app.env /workspace/
 
 FROM file_prepare AS build
-RUN cd /workspace/unzip60 && make -f ./unix/Makefile generic
+RUN cd /workspace/src && make -f ./unix/Makefile generic
 
 ENTRYPOINT ["./unzip-all.sh"]

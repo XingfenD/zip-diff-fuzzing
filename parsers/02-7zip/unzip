@@ -8,12 +8,12 @@
 set -eu
 
 # $1 -- the path of zip file
-# $2 -- the path of output **directory**
+# $2 -- the path of output (/output/xx-parser_name/xxx.zip/)
 
-base=$(basename "$1")
+filename=$(basename "$1")
+src_dir="/workspace/src"
+executable="$src_dir/CPP/7zip/Bundles/Alone/_o/7za"
+$executable x -o"$2" "$1"
 
-/workspace/7z2501-src/CPP/7zip/Bundles/Alone/_o/7za x -o"$2" "$1"
 
-lcov -c -d /workspace/7z2501-src -o "$2"/../"$base".covinfo
-
-./coverage.sh /workspace/7z2501-src "$2"/../"$base".covinfo /workspace/7z2501-src
+/workspace/coverage.sh "$src_dir" "$filename" "$2/.."

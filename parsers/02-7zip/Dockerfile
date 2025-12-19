@@ -9,10 +9,10 @@ RUN apk add --no-cache g++
 WORKDIR /workspace
 
 FROM env AS file_prepare
-COPY 7z2501-src /workspace/7z2501-src
+COPY src /workspace/src
 COPY unzip unzip-all.sh coverage.sh app.env /workspace/
 
 FROM file_prepare AS build
-RUN cd /workspace/7z2501-src/CPP/7zip/Bundles/Alone && make -f makefile.gcc
+RUN cd /workspace/src/CPP/7zip/Bundles/Alone && make -f makefile.gcc
 
 ENTRYPOINT ["./unzip-all.sh"]

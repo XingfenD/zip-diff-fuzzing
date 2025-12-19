@@ -7,8 +7,17 @@
 
 set -eu
 
-# $1 source code path
-# $2 output coverinfo path
-# $3 path prefix to replace in coverinfo
+source /workspace/app.env
 
-base=$(basename "$1")
+# $1 -- source code directory
+# $2 -- zip filename
+# $3 -- output directory (/output/xx-parser_name)
+
+# generate coverage info with local path
+lcov -c -d "$1" -o "$3"/"$2".raw.covinfo
+
+# replace local path with host machine path
+perl -pe "s#\Q$1\E#$ROOT_DIR/parsers/$PARSER_RELATIVE_PATH/src#g" "$3"/"$2".raw.covinfo > "$3"/"$2".covinfo
+
+# remove raw covinfo
+rm "$3"/"$2".raw.covinfo

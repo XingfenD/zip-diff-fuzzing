@@ -8,10 +8,10 @@
 set -eu
 
 # $1 -- the path of zip file
-# $2 -- the path of output **directory** (without sub directory)
+# $2 -- the path of output (/output/xx-parser_name/xxx.zip/)
 
 filename=$(basename "$1")
-src_dir="/workspace/unzip60"
+src_dir="/workspace/src"
 executable="$src_dir/unzip"
 "$executable" -t "$1"
 "$executable" -o "$1" -d "$2"
