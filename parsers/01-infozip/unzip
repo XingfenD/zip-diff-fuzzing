@@ -1,6 +1,28 @@
 #!/bin/sh
 
+# Original work Copyright (c) [Yufan You and so on] 2025
+# Original work licensed under the Apache License, Version 2.0 (the "Apache-2.0 License");
+# You may obtain a copy of the Apache-2.0 License at:
+#   http://www.apache.org/licenses/LICENSE-2.0
+
+# Modified work Copyright (c) [Fendy/WHU] [2025-2026]
+# Modified work licensed under the MIT License (the "MIT License");
+# You may obtain a copy of the MIT License at:
+#   https://opensource.org/licenses/MIT
+
+# This file contains modifications to the original ZipDiff codebase (https://github.com/ouuan/ZipDiff).
+# Modifications include:
+#   1. Compile the info-zip (the unzip60) from the source code instead of installing by the apk package manager.
+#   2. Collect the coverage report to the output directory.
+
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the Apache-2.0 License and MIT License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the respective licenses for the specific language governing permissions and limitations.
+
 set -eu
 
-./unzip -t "$1"
-./unzip -o "$1" -d "$2"
+/workspace/unzip60/unzip -t "$1"
+/workspace/unzip60/unzip -o "$1" -d "$2"
+
+lcov -c -d /workspace/unzip60 -o /output/"$i"/coverage.info

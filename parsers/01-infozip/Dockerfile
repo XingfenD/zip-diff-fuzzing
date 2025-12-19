@@ -3,7 +3,7 @@
 # You may obtain a copy of the Apache-2.0 License at:
 #   http://www.apache.org/licenses/LICENSE-2.0
 
-# Modified work Copyright (c) [Fendy/WHU] [2025]
+# Modified work Copyright (c) [Fendy/WHU] [2025-2026]
 # Modified work licensed under the MIT License (the "MIT License");
 # You may obtain a copy of the MIT License at:
 #   https://opensource.org/licenses/MIT
@@ -21,10 +21,10 @@ FROM alpine:3.20
 
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories && apk add --no-cache gcc make musl-dev
 
-WORKDIR /usr/src/unzip60
+WORKDIR /workspace
 
-COPY unzip60/ .
+COPY unzip60 unzip unzip-all.sh clean_up.sh /workspace/
 
-RUN make -f ./unix/Makefile generic
+RUN cd unzip60 && make -f ./unix/Makefile generic
 
-ENTRYPOINT ["./start.sh"]
+ENTRYPOINT ["./unzip-all.sh"]
