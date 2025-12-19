@@ -244,6 +244,7 @@ ZIP_OBJS = \
   $O/ZipRegister.o \
 
 COMPRESS_OBJS = \
+  $O/BitlDecoder.o \
   $O/CopyCoder.o \
   $O/CopyRegister.o \
   $O/Deflate64Register.o \
