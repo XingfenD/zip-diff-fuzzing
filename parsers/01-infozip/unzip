@@ -22,7 +22,12 @@
 
 set -eu
 
+# $1 -- the path of zip file
+# $2 -- the path of output **directory**
+
+base=$(basename "$1")
+
 /workspace/unzip60/unzip -t "$1"
 /workspace/unzip60/unzip -o "$1" -d "$2"
 
-lcov -c -d /workspace/unzip60 -o /output/"$i"/coverage.info
+lcov -c -d /workspace/unzip60 -o "$2"/../"$base".covinfo

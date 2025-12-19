@@ -13,6 +13,9 @@
 # This file contains modifications to the original ZipDiff codebase (https://github.com/ouuan/ZipDiff).
 # Modifications include:
 #   1. Change the execable from unzip to /workspace/unzip
+#   2. Remove the sub-output directory if it exists.
+#   3. Rename the variable and modify the passed parameter to the unzip script.
+#   4. Remove touch new empty file if unzip failed.
 
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the Apache-2.0 License and MIT License is distributed on an
@@ -23,10 +26,11 @@ set -eu
 
 cd /input
 
-for i in *; do
-    mkdir -p /output/"$i"
-    if ! timeout 1m /workspace/unzip "$(realpath "$i")" /output/"$i"; then
-        while ! rm -rf /output/"$i"; do echo "Failed to rm -rf /output/$i"; done
-        touch /output/"$i"
+for filename in *; do
+    filebasename=$(basename "$filename")
+    if [ -e /output/"$filebasename" ]; then
+        rm -rf /output/"$filebasename"
     fi
+    mkdir -p /output/"$filebasename"
+    timeout 1m /workspace/unzip "$(realpath "$filename")" /output/"$filebasename"
 done
