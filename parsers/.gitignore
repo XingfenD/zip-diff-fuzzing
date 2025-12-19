@@ -3,3 +3,5 @@
 */parallel-unzip-all.sh
 
 */unzip-all.sh
+
+./docker-compose.yml

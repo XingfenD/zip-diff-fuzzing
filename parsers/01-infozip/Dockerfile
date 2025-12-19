@@ -17,14 +17,17 @@
 # "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the respective licenses for the specific language governing permissions and limitations.
 
-FROM alpine:3.20
+FROM alpine:3.20 AS base
 
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories && apk add --no-cache gcc make musl-dev
 
 WORKDIR /workspace
 
-COPY unzip60 unzip unzip-all.sh clean_up.sh /workspace/
+FROM base AS file_prepare
+COPY unzip60 /workspace/unzip60
+COPY unzip unzip-all.sh /workspace/
 
-RUN cd unzip60 && make -f ./unix/Makefile generic
+FROM file_prepare AS build
+RUN cd /workspace/unzip60 && make -f ./unix/Makefile generic
 
 ENTRYPOINT ["./unzip-all.sh"]

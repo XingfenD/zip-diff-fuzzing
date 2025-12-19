@@ -10,7 +10,7 @@ cd "$base"/parsers
 echo "services:" > docker-compose.yml
 
 for i in */; do
-    cp unzip-all.sh parallel-unzip-all.sh testcase.sh "$i"
+    cp "$base"/tools/unzip-all.sh "$base"/tools/parallel-unzip-all.sh "$base"/tools/testcase.sh "$i"
     parser=${i%/}
     echo "  $parser:
     build: $parser
