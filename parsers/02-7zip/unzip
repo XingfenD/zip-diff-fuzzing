@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# Copyright (c) [Fendy/WHU] [2025-2026]
+# Licensed under the MIT License (the "MIT License");
+# You may obtain a copy of the MIT License at:
+#   https://opensource.org/licenses/MIT
+
+set -eu
+
+# $1 -- the path of zip file
+# $2 -- the path of output **directory**
+
+base=$(basename "$1")
+
+/workspace/7z2501-src/CPP/7zip/Bundles/Alone/_o/7za x -o"$2" "$1"

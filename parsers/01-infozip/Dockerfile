@@ -18,9 +18,7 @@
 # See the respective licenses for the specific language governing permissions and limitations.
 
 FROM alpine:3.20 AS base
-
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories && apk add --no-cache gcc make musl-dev lcov gzip
-
 WORKDIR /workspace
 
 FROM base AS file_prepare
