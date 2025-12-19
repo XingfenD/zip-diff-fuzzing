@@ -30,11 +30,12 @@ output_dir="${OUTPUT_DIR:-$base/evaluation/output}"
 
 cd "$base"/parsers
 echo "services:" > docker-compose.yml
-echo "ROOT_DIR=$base" >> "$scripts_base"/app.env
+echo "ROOT_DIR=$base" > "$scripts_base"/app.env
 
 for i in */; do
     cp "$scripts_base"/unzip-all.sh "$scripts_base"/parallel-unzip-all.sh "$scripts_base"/testcase.sh "$scripts_base"/app.env "$i"
     parser=${i%/}
+    echo "PARSER_RELATIVE_PATH=$parser" >> "$i"/app.env
     echo "  $parser:
     build: $parser
     volumes:

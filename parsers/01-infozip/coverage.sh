@@ -5,10 +5,12 @@
 
 set -eu
 
-source app.env
+source /workspace/app.env
 
 # $1 -- source code directory
 # $2 -- zip filename
 # $3 -- output directory
 
-lcov -c -d "$1" -o "$3"/"$2".covinfo
+lcov -c -d "$1" -o "$3"/"$2".raw.covinfo
+perl -pe "s#\Q$1\E#$ROOT_DIR/parsers/01-infozip/unzip60#g" "$3"/"$2".raw.covinfo > "$3"/"$2".covinfo
+rm "$3"/"$2".raw.covinfo
