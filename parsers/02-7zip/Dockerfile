@@ -9,7 +9,7 @@ RUN apk add --no-cache g++
 WORKDIR /workspace
 
 FROM env AS file_prepare
-COPY src.tar.gz /workspace/
+COPY src.tar.gz /workspace
 RUN tar -xzf src.tar.gz && rm src.tar.gz
 COPY unzip unzip-all.sh coverage.sh app.env /workspace/
 
