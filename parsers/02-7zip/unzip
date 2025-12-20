@@ -13,7 +13,8 @@ set -eu
 filename=$(basename "$1")
 src_dir="/workspace/src"
 executable="$src_dir/CPP/7zip/Bundles/Alone/_o/7za"
-$executable x -o"$2" "$1"
 
+find . -name "*.gcda" -delete
+$executable x -o"$2" "$1"
 
 /workspace/coverage.sh "$src_dir" "$filename" "$2/.."
