@@ -4,7 +4,7 @@
 #   https://opensource.org/licenses/MIT
 
 FROM alpine:3.20 AS env
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories && apk add --no-cache gcc make musl-dev lcov gzip
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories && apk add --no-cache gcc make musl-dev lcov gzip zlib-dev
 RUN apk add --no-cache g++
 WORKDIR /workspace
 
