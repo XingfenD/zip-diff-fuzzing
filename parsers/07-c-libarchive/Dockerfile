@@ -1,0 +1,20 @@
+# Copyright (c) [Fendy/WHU] [2025-2026]
+# Licensed under the MIT License (the "MIT License");
+# You may obtain a copy of the MIT License at:
+#   https://opensource.org/licenses/MIT
+
+FROM alpine:3.20 AS env
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories && apk add --no-cache gcc make musl-dev lcov gzip
+RUN apk add --no-cache g++
+WORKDIR /workspace
+
+FROM env AS file_prepare
+COPY src.tar.gz /workspace
+RUN tar -xzf src.tar.gz && rm src.tar.gz
+COPY src /workspace/src
+COPY unzip unzip-all.sh coverage.sh app.env /workspace/
+
+FROM file_prepare AS build
+RUN mkdir /workspace/src/build-coverage && cd /workspace/src/build-coverage && CFLAGS="-fprofile-arcs -ftest-coverage" && CXXFLAGS="-fprofile-arcs -ftest-coverage"&& /workspace/src/configure && make -j$(nproc --ignore=2) bsdunzip
+
+ENTRYPOINT ["./unzip-all.sh"]
